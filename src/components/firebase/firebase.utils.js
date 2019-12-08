@@ -14,6 +14,40 @@ const config= {
         measurementId: "G-F7ZEMGTGHE"
     };   
       // Initialize Firebasw 
+
+//code to store the user login info from authentication section of firebase to database section of fire base. Mainly creating the document.
+//userauth is the authentication object with many properties.
+export const createUserProfileDocument= async (userauth, additionalData) => {
+  //if userauth is null we wont store in db
+  if (!userauth) return;
+  //create a reference object to userauth 
+  const userRef=firestore.doc(`user/${userauth.uid}`);
+  //taking snapshot or fetching the data from the doc 
+  const snapshot= await userRef.get();
+  console.log(snapshot);
+  //use of exists method of docref object to check for any data, if data is not found create the document//
+  if(!snapshot.exists) {
+    const {displayName, email} = userauth;
+    const createdAt=new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData
+      }
+      )
+
+    } catch(error) {
+      console.log('error creatin user' +error.message);
+
+
+    };
+    
+  }
+  return userRef;
+};
 firebase.initializeApp(config);
 export const auth= firebase.auth();
 export const firestore=firebase.firestore();
