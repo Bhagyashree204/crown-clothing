@@ -13,7 +13,7 @@ const config= {
         appId: "1:592576449630:web:31daaef68017093ed2f8cf",
         measurementId: "G-F7ZEMGTGHE"
     };   
-      // Initialize Firebasw 
+      // Initialize Firebase
 
 //code to store the user login info from authentication section of firebase to database section of fire base. Mainly creating the document.
 //userauth is the authentication object with many properties.

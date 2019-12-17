@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
 import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../firebase/firebase.utils';
@@ -29,5 +30,10 @@ const Header = ({currentUser}) => (
 
 );
 
+//state is a root reducer state where redux passes down the value as props to state from root-reducer. now the header comp recieves the current user value from reducer not the app.js
+const mapStateToProps = state => ({
+    currentUser:state.user.currentUser
+});
 
-export default Header;
+
+export default connect(mapStateToProps)(Header);

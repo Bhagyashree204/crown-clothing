@@ -2,7 +2,7 @@ import React from 'react';
 import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component';
-import { SignInWithGoogle } from '../firebase/firebase.utils';
+import { auth, SignInWithGoogle } from '../firebase/firebase.utils';
 class SignIn extends React.Component {
 
     constructor() {
@@ -15,16 +15,27 @@ class SignIn extends React.Component {
     }
 
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
 
         event.preventDefault()
-        this.setState({ email: '', password: '' })
+        const { email, password } = this.state;
+
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            this.setState({ email: '', password: '' })
+
+
+        } catch (error) {
+            console.log(error);
+        }
+
 
     }
 
+    /* we need to store both email and password. so we call handlechange on each tag seperately. when is called on email, event1.target will have the forminput tag written for email, from that we will be destructuring only name of tag and value of the tag currently being processed and same thing is provessed for password.*/
     handleChange = event1 => {
         const { value, name } = event1.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value }); //dynammically populating the props with user entered details
     }
 
     render() {
