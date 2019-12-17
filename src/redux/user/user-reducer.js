@@ -1,3 +1,5 @@
+import {userActionTypes} from './usertypes';
+
 const INITIAL_STATE={
     currentUser:null
 }
@@ -5,7 +7,7 @@ const INITIAL_STATE={
 //when reducer is first rendered,state value will be null so we use defualt value.
 const UserReducer=(state=INITIAL_STATE,action) =>{
     switch(action.type){
-        case 'SET_CURRENT_USER':
+        case userActionTypes.SET_CURRENT_USER:
             return {
                 ...state,
                 currentUser:action.payload
