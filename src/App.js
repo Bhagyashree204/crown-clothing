@@ -10,6 +10,8 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import ShopPage from './pages/shop/shop.component';
 import { auth, createUserProfileDocument } from './components/firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
+import {createStructuredSelector} from 'reselect';
+import {selectCurrentUser} from './redux/user/user.selectors';
 class App extends React.Component {
   //no need to have this constructor as action is being taken care by mapDispatchTostates
   /* constructor () {
@@ -73,9 +75,12 @@ class App extends React.Component {
 
 }
 /* this redirects to homepage after logging in ; user is from root-reducer*/
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
-})
+const mapStateToProps = createStructuredSelector({
+
+  currentUser: selectCurrentUser
+});
+  
+
 
 /* app.js should update the setcurrent value to reducer with the action (suer action), so we can use the value in other components*/
 //setCurrentUser is userreducer func and action passed into dispatch is passed to user reducers
