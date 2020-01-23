@@ -8,7 +8,8 @@ import { auth } from '../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropDown  from "../cart-component/cart-component.component";
 import {selectCartHidden} from '../../redux/cart/cart.selectors'
-import {selectCurrentUser} from '../../redux/user/user.selectors'
+import {selectCurrentUser} from '../../redux/user/user.selectors';
+
 
 const Header = ({currentUser, hidden}) => (
     <div className="header">
@@ -22,11 +23,11 @@ const Header = ({currentUser, hidden}) => (
             <Link className="option" to="/shop">
                 CONTACT
             </Link>
-            <Link className="option" to="/sign">
+            <Link className="option" to="/signin">
                 {
                 currentUser?
                 <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>:
-                <Link className="option" to="/sign">SIGNIN</Link>
+                <Link className="option" to="/signin">SIGNIN</Link>
 
                 }
             </Link>

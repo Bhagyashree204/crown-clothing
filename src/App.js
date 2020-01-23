@@ -12,6 +12,7 @@ import { auth, createUserProfileDocument } from './components/firebase/firebase.
 import { setCurrentUser } from './redux/user/user.actions';
 import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from './redux/user/user.selectors';
+import checkOutPage from './pages/checkout/checkout.component';
 class App extends React.Component {
   //no need to have this constructor as action is being taken care by mapDispatchTostates
   /* constructor () {
@@ -63,6 +64,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
+          <Route path='/checkout' component={checkOutPage} />
           <Route  exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/'/>) :(<SignInAndSignUpPage/>)} />
 
         </Switch>
