@@ -48,6 +48,45 @@ export const createUserProfileDocument= async (userauth, additionalData) => {
   }
   return userRef;
 };
+
+
+export const addCollectionAndDocuments =async (collectionKey, objectsToAdd) => {
+  const collectionRef=firestore.collection(collectionKey);
+  console.log(objectsToAdd);
+
+  const batch=firestore.batch();
+  objectsToAdd.forEach(obj => {
+    //will create unique id for each category
+    const newDocRef=collectionRef.doc();
+    batch.set(newDocRef,obj);
+    console.log(newDocRef);
+    
+  });
+    return await batch.commit();
+
+}
+
+export const convertCollectionssnapshotToMap=(collections) => {
+  const transformedCollection= collections.docs.map(doc => {
+  const {title,items}= doc.data();
+
+  return {
+    routeName:encodeURI(title.toLowerCase()),
+    id:doc.id,
+    title,
+    items
+  }
+});
+
+//transfomedcollection is an array whch has  combined data from firestore as well as encoded routename, to enhance the performace while ccessing the array must be reduced to object just like shop dtaa
+return transformedCollection.reduce((accumulator,collection)=>{
+  accumulator[collection.title.toLowerCase()]=collection;
+  return accumulator;
+},{});
+
+
+}
+
 firebase.initializeApp(config);
 export const auth= firebase.auth();
 export const firestore=firebase.firestore();

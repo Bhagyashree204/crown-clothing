@@ -13,6 +13,7 @@ import { setCurrentUser } from './redux/user/user.actions';
 import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from './redux/user/user.selectors';
 import checkOutPage from './pages/checkout/checkout.component';
+
 class App extends React.Component {
   //no need to have this constructor as action is being taken care by mapDispatchTostates
   /* constructor () {
@@ -48,6 +49,7 @@ class App extends React.Component {
       //if user logs out then set the currentuser to null
       else {
         setCurrentUser(userauth)
+
       }
     });
   }
@@ -79,7 +81,8 @@ class App extends React.Component {
 /* this redirects to homepage after logging in ; user is from root-reducer*/
 const mapStateToProps = createStructuredSelector({
 
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+
 });
   
 

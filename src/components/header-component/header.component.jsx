@@ -1,44 +1,45 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import './header.styles.scss';
+//import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropDown  from "../cart-component/cart-component.component";
 import {selectCartHidden} from '../../redux/cart/cart.selectors'
 import {selectCurrentUser} from '../../redux/user/user.selectors';
+import {OptionLink,HeaderContainer,LogoContainer,OptionsContainer} from './header.styles';
 
 
 const Header = ({currentUser, hidden}) => (
-    <div className="header">
-        <Link className="logo-container" to='/'>
+    <HeaderContainer>
+        <LogoContainer to='/'>
             <Logo className='logo'></Logo>
-        </Link>
-        <div className="options">
-            <Link className="option" to="/shop">
+        </LogoContainer>
+        <OptionsContainer>
+            <OptionLink to="/shop">
                 SHOP
-            </Link>
-            <Link className="option" to="/shop">
+            </OptionLink>
+            <OptionLink to="/shop">
                 CONTACT
-            </Link>
-            <Link className="option" to="/signin">
+            </OptionLink>
+            <OptionLink to="/signin">
                 {
                 currentUser?
-                <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>:
-                <Link className="option" to="/signin">SIGNIN</Link>
+                <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>:
+                <OptionLink to="/signin">SIGNIN</OptionLink>
 
                 }
-            </Link>
+            </OptionLink>
 
             <CartIcon/>
-         </div>
+         </OptionsContainer>
          {
             hidden?null:<CartDropDown/>
          }
          
-    </div>
+    </HeaderContainer>
 
 );
 
